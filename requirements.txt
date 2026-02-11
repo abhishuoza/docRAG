@@ -1,0 +1,19 @@
+# Generated from pyproject.toml - use `pip install -e ".[dev]"` for development
+# This file is for environments that don't support pyproject.toml directly (e.g. Docker)
+typer>=0.12.0
+rich>=13.0
+fastapi>=0.115.0
+uvicorn[standard]>=0.34.0
+pydantic>=2.10.0
+pydantic-settings>=2.7.0
+beautifulsoup4>=4.12.0
+requests>=2.32.0
+httpx>=0.28.0
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-community>=0.3.0
+langchain-chroma>=0.2.0
+langchain-huggingface>=0.1.0
+langchain-openai>=0.3.0
+langchain-anthropic>=0.3.0
+sentence-transformers>=3.0.0
