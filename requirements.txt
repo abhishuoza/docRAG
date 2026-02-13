@@ -1,14 +1,15 @@
-# Generated from pyproject.toml - use `pip install -e ".[dev]"` for development
-# This file is for environments that don't support pyproject.toml directly (e.g. Docker)
+# Generated from pyproject.toml (base + server groups) for Docker builds
+# Base dependencies
 typer>=0.12.0
 rich>=13.0
+pydantic>=2.10.0
+httpx>=0.28.0
+# Server dependencies
 fastapi>=0.115.0
 uvicorn[standard]>=0.34.0
-pydantic>=2.10.0
 pydantic-settings>=2.7.0
 beautifulsoup4>=4.12.0
 requests>=2.32.0
-httpx>=0.28.0
 langchain>=0.3.0
 langchain-core>=0.3.0
 langchain-community>=0.3.0

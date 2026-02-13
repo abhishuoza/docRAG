@@ -19,14 +19,15 @@ class DocRetriever:
         embedding_model: str = "all-MiniLM-L6-v2",
         chunk_size: int = 1000,
         chunk_overlap: int = 200,
-        chroma_client: "chromadb.ClientAPI | None" = None,
+        chroma_client=None,
+        embeddings=None,
     ):
         self._splitter = RecursiveCharacterTextSplitter(
             chunk_size=chunk_size,
             chunk_overlap=chunk_overlap,
         )
 
-        self._embeddings = HuggingFaceEmbeddings(model_name=embedding_model)
+        self._embeddings = embeddings or HuggingFaceEmbeddings(model_name=embedding_model)
 
         self._store = Chroma(
             collection_name=collection_name,
@@ -66,9 +67,23 @@ class DocRetriever:
     def get_stats(self) -> dict:
         """Return basic stats about the vector store."""
         collection = self._store._collection
+        total = collection.count()
+
+        # Extract unique source URLs from metadata
+        sources: list[str] = []
+        if total > 0:
+            result = collection.get(include=["metadatas"])
+            metadatas = result["metadatas"] or []
+            sources = sorted({
+                str(m.get("source", "unknown"))
+                for m in metadatas
+                if m
+            })
+
         return {
-            "total_chunks": collection.count(),
+            "total_chunks": total,
             "collection_name": collection.name,
+            "sources": sources,
         }
 
     def as_retriever(self, **kwargs) -> VectorStoreRetriever:

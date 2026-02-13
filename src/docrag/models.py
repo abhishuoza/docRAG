@@ -38,6 +38,7 @@ class GenerationRequest(BaseModel):
     query: str
     doc_urls: list[str]
     top_k: int = 5
+    search_query: str | None = None
 
 
 class GenerationResponse(BaseModel):
@@ -47,3 +48,4 @@ class GenerationResponse(BaseModel):
     generated_code: str
     references: list[RetrievedChunk]
     model_used: str
+    low_relevance: bool = False
